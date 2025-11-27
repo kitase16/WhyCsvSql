@@ -65,6 +65,42 @@ void Print(Table& T,std::ostream& os) {
 	}
 }
 
+Table Row(const Table& T,std::uintmax_t rsp) {
+
+	Table f;
+	f.Width = 1;
+	f.Height = T.Height;
+	for (std::size_t i = 0; i < T.Height; i++) {
+		f.Table.push_back(Index(T, rsp, i));
+	}
+
+	return f;
+
+}
+Table Col(const Table& T,std::uintmax_t csp) {
+
+	Table f;
+	f.Width = T.Width;
+	f.Height = 1;
+	for (std::size_t i = 0; i < T.Width; i++) {
+		f.Table.push_back(Index(T, i,csp));
+	}
+
+	return f;
+
+}
+void Row(const Table& T,std::ostream& os,std::uintmax_t rsp) {
+
+	for (std::size_t i = 0; i < T.Height; i++) {
+		os << Index(T, rsp, i) <<std::endl;
+	}
+}
+void Col(const Table& T,std::ostream& os,std::uintmax_t csp) {
+
+	for (std::size_t i = 0; i < T.Width; i++) {
+		os<<Index(T, i,csp)<<',';
+	}
+}
 void Clear(Table& In) {
 	In.Width = 0;
 	In.Height = 0;
