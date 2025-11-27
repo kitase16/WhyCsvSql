@@ -45,6 +45,8 @@ void Print(Table& T,std::ostream& os) {
 
 	std::intmax_t i = 0;
 
+	os << T.Width << 'x' << T.Height<<std::endl;
+
 	for (auto& o : T.Table) {
 		os << o;
 		if ((i - T.Width)==0) {
