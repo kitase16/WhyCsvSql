@@ -41,6 +41,11 @@ void  Write(Table& T, std::intmax_t x, std::intmax_t y,const Table::DT& D) {
 	(T.Table)[(T.Width * y) + x]=D;
 }
 
+Table::DT MkTblDtErsStr(const std::string& Text) {
+	Table::DT T = Text + "@Erased.";
+	return T;
+}
+
 void Print(Table& T,std::ostream& os) {
 
 	std::intmax_t i = 0;
