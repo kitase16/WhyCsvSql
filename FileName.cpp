@@ -27,7 +27,8 @@ Table CreatTable(std::uintmax_t W, std::uintmax_t H) {
 Table::DT Index(const Table& T, std::intmax_t x, std::intmax_t y) {
 	if (T.Width > x && x < 0) { return nullptr; }
 	if (T.Height > y && y < 0) { return nullptr; }
-	if ((unsigned)((T.Width * y) + x) <= T.Table.size()) { return nullptr; }
+	if (static_cast<std::size_t>((T.Width * y) + x) >= T.Table.size()) { return nullptr; }
+	if (T.Table.size() == 0) { return nullptr; }
 	
 	return (T.Table)[(T.Width * y) + x];
 
@@ -46,7 +47,7 @@ Table::DT MkTblDtErsStr(const std::string& Text) {
 	return T;
 }
 
-void Print(Table& T,std::ostream& os) {
+/** /void Print(Table& T, std::ostream& os) {
 
 	std::intmax_t i = 0;
 
@@ -56,7 +57,7 @@ void Print(Table& T,std::ostream& os) {
 		os << o;
 		if ((i - T.Width)==0) {
 			os<<std::endl;
-			i -= T.Width;
+			i -= T.Width+1;
 		}
 		else {
 			os << ',';
@@ -65,6 +66,17 @@ void Print(Table& T,std::ostream& os) {
 	}
 }
 
+/**/
+void Print(const Table& T,std::ostream& os) {
+
+	for (std::size_t i = 0; i < T.Height; i++) {
+		for (std::size_t j = 0; j < T.Width; j++) {
+			os << Index(T, j, i);
+			os<< ',';
+		}
+		os << std::endl;
+	}
+}
 Table Row(const Table& T,std::uintmax_t rsp) {
 
 	Table f;
@@ -109,7 +121,7 @@ void Clear(Table& In) {
 
 int main() {
 
-	Table T = CreatTable(16, 16);
+	Table T = CreatTable(4, 4);
 
 	Print(T, std::cout);
 
